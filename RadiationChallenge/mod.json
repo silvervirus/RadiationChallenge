@@ -1,0 +1,13 @@
+﻿{
+    "Id": "RadiationChallenge",
+    "DisplayName": "RadiationChallenge",
+    "Author": "libraryaddict",
+    "Version": "1.0.2",
+    "Requires": [
+        "0Harmony-1.2.0.1.dll"
+    ],
+    "Enable": true,
+    "AssemblyName": "RadiationChallenge.dll",
+    "EntryMethod": "RadiationChallenge.Qpatch.Patch",
+    "Priority": "Last"
+}
