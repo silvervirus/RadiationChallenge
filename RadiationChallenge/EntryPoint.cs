@@ -1,48 +1,36 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using RadiationChallenge.Patches;
 using System;
 using System.IO;
 using System.Reflection;
 using Oculus.Newtonsoft.Json;
 using QModManager.API.ModLoading;
-
+using SMLHelper.V2.Handlers;
 namespace RadiationChallenge
 {
     [QModCore]
     public class Qpatch
     {
-        public static RadiationConfig config;
-        private static readonly string configPath = @"./QMods/RadiationChallenge/config.json";
+        internal static Config config { get; } = OptionsPanelHandler.Main.RegisterModOptions<Config>();
 
-        private static void LoadConfig()
-        {
-            if (!File.Exists(configPath))
-            {
-                config = new RadiationConfig();
-                return;
-            }
 
-            var json = File.ReadAllText(configPath);
-            config = JsonConvert.DeserializeObject<RadiationConfig>(json);
-        }
 
-        public static void SaveConfig()
-        {
-            var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-            File.WriteAllText(configPath, json);
-        }
+
+
+
         [QModPatch]
         public static void Patch()
         {
-            HarmonyInstance harmony = HarmonyInstance.Create("com.libraryaddict.challenge.radiation");
+            
+            Harmony harmony = new Harmony("com.libraryaddict.challenge.radiation");
 
             if (harmony == null)
             {
                 return;
             }
 
-            LoadConfig();
-            SaveConfig();
+           
+            
 
             if (config.explosionDepth > 0)
             {
